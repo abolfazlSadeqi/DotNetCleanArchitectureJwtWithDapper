@@ -35,7 +35,7 @@ Dapper is an micro ORM  for the Microsoft .NET platform: it provides a framework
    services.AddSingleton<DapperDBContext>(provider => new DapperDBContext(DefaultConnection));
   ```
       
-### 4.Using Deppar methods (ExecuteScalar, Query, …)
+### 4.Using Dapper methods (ExecuteScalar, Query, …)
 
 #### ExecuteScalar
 
