@@ -7,6 +7,8 @@ using Dapper;
 using Hangfire;
 using Application.Common.Interfaces;
 using Application.Common.Models;
+using Common.Other;
+using System.Collections.Generic;
 
 namespace Infrastructure_Dapper.Services.Custom.CustomerCommand;
 
@@ -17,6 +19,10 @@ public class CustomerService : ICustomerService
 
     public CustomerService(DapperDBContext context) => _context = context;
 
+    /// <summary>
+    /// Executes query that return a single value.
+    /// </summary>
+    /// <returns></returns>
     public async Task<int?> GetCountCustomersNew()
     {
 
@@ -27,7 +33,14 @@ public class CustomerService : ICustomerService
 
     }
 
-
+    /// <summary>
+    /// Executes a query that return a row(first or single)
+    /// •	QuerySingle(result= a row)
+    /// •	QuerySingleOrDefault(result= a row or null)
+    /// •	QueryFirst(result= first row)
+    /// •	QueryFirstOrDefault(result= first row or null)
+    /// </summary>
+    /// <returns></returns>
     public async Task<CustomerInfo?> GetFirstCustomers()
     {
 
@@ -38,7 +51,10 @@ public class CustomerService : ICustomerService
 
     }
 
-
+    /// <summary>
+    /// Executes a query, returning and maps it to a list of dynamic objects 
+    /// </summary>
+    /// <returns></returns>
     public async Task<IEnumerable<CustomerInfo>> GetAllCustomers()
     {
 
@@ -49,7 +65,10 @@ public class CustomerService : ICustomerService
 
     }
 
-
+    /// <summary>
+    /// Execute a multi query that returns multiple result sets, and access each in turn.•	Step 1: execute multiple queries using the QueryMultiple•	Step 2: get the returned results  with Read, ReadFirst, ReadFirstOrDefault, ReadSingle, ReadSingleOrDefault
+    /// </summary>
+    /// <returns></returns>
     public async Task<Tuple<CustomerInfo, CustomerInfo>> GetFirstAndLastCustomers()
     {
         using (var db = _context.CreateConnection())
@@ -63,7 +82,10 @@ public class CustomerService : ICustomerService
 
         }
     }
-
+    /// <summary>
+    /// Execute a query and return an IDataReader .
+    /// </summary>
+    /// <returns></returns>
     public async Task<Tuple<long?, DateTime?>> GetValidCsutomer()
     {
         using (var db = _context.CreateConnection())
@@ -84,6 +106,11 @@ public class CustomerService : ICustomerService
             return new Tuple<long?, DateTime?>(count, maxCreateDate);
         }
     }
+    /// <summary>
+    /// use Parameter in queries
+    /// </summary>
+    /// <param name="Email"></param>
+    /// <returns></returns>
     public async Task<IEnumerable<CustomerInfo>> GetCsutomerByEmail(string Email)
     {
         using (var db = _context.CreateConnection())
@@ -94,6 +121,10 @@ public class CustomerService : ICustomerService
         }
     }
 
+    /// <summary>
+    /// Execute a query and  return the number of affected rows. It is used to execute INSERT, UPDATE, and DELETE statement
+    /// </summary>
+    /// <returns></returns>
     public async Task<int?> UpdateEmailNullCustomers()
     {
         using (var db = _context.CreateConnection())
