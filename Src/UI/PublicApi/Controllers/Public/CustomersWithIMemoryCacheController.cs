@@ -16,7 +16,7 @@ using PublicApi.Controllers.Base;
 using System;
 
 namespace PublicAPI.Controllers.Public;
-//[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "AdminLevel2")]
+[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme, Roles = "AdminLevel2")]
 public class CustomersWithIMemoryCacheController : ApiControllerBase
 {
     private readonly ILogger<CustomersWithIMemoryCacheController> _logger;
