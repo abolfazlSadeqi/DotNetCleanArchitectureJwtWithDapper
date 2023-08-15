@@ -1,6 +1,8 @@
-﻿using FluentValidation.AspNetCore;
+﻿using Common.UI.Cache;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -19,7 +21,9 @@ public class HelperBaseService
 {
     public static void ConfigureService(IServiceCollection services, IConfiguration configuration)
     {
-        
+        services.AddMemoryCache();
+    
+
         services.AddStackExchangeRedisCache(options =>
         {
             options.Configuration = configuration.GetConnectionString("RedisConnection");
